@@ -1,0 +1,5 @@
+Dimension,Alt. Model,G_MAD,G_rho,P_MAD,P_rho
+Correctness,Qwen,0.042,0.891,N/A,N/A
+Correctness,OLMo,0.055,0.878,N/A,N/A
+Conciseness,Qwen,0.037,0.939,0.052,0.924
+Conciseness,OLMo,0.036,0.943,0.047,0.931
