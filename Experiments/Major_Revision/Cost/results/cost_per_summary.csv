@@ -1,0 +1,5 @@
+dimension,generated_tokens,seconds,gpu_seconds,usd
+Correctness,1365,7.8,0.0,0.0035
+Conciseness,9557,54.3,0.0,0.0243
+Abstraction,5355,57.8,29.4,0.0123
+Total (dimensions in parallel),16277,57.8,29.4,0.0401

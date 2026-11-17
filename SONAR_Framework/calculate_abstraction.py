@@ -206,17 +206,17 @@ def compute_diversity(codes: List[str], entry_point: str, func_sig: str) -> Dict
     }
 
 
+TEMPERATURES = (0.5, 0.8, 1.0)
+TOP_P = 0.95
+
+
 def score_abstraction(
     summary: str,
     func_sig: str,
     generators: List,
-    n_samples: int = 3,
 ) -> float:
     ep    = _entry_point(func_sig)
-    codes: List[str] = []
-    for gen in generators:
-        for _ in range(n_samples):
-            codes.append(gen.generate(summary, func_sig))
+    codes = [gen.generate(summary, func_sig, temperature=t) for gen in generators for t in TEMPERATURES]
     return compute_diversity(codes, ep, func_sig)["diversity_score"]
 
 
@@ -269,7 +269,7 @@ class LocalCodeGenerator:
         return f"<system>\n{self._SYSTEM}\n</system>\n<user>\n{user}\n</user>\n<assistant>\n"
 
     @torch.inference_mode()
-    def generate(self, summary: str, func_sig: str) -> str:
+    def generate(self, summary: str, func_sig: str, temperature: float = 0.8) -> str:
         prompt  = self._prompt(summary, func_sig)
         inputs  = self.tokenizer(prompt, return_tensors="pt",
                                  truncation=True, padding=True).to(self.model.device)
@@ -278,8 +278,8 @@ class LocalCodeGenerator:
             **inputs,
             max_new_tokens=self.max_new_tokens,
             do_sample=True,
-            temperature=0.8,
-            top_p=0.95,
+            temperature=temperature,
+            top_p=TOP_P,
             top_k=50,
             pad_token_id=self.tokenizer.pad_token_id,
             eos_token_id=self.tokenizer.eos_token_id,

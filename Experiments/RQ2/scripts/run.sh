@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -e
 
-# Builds the correlation table from the per-model results already shipped in
-# this repo (translation/, optimization/, oracle_gen/*.jsonl, retrieval/retrieval_metrics.jsonl).
-# No GPU or API keys needed for this step.
-python3 create_correlation_table.py
-
-# (Optional) Partial-Spearman table (each SONAR dim controlled for the other 3)
-# -> ../results/correlation_partial.csv
-# python3 create_correlation_table.py --partial
+# Builds Table III (partial Spearman correlations between each method and downstream performance,
+# with 95% bootstrap CIs) from the per-model results shipped in this repo:
+#   retrieval/mrr_scores_rerun.csv, translation/, optimization/, oracle_gen/*.jsonl, summary_pool.jsonl,
+#   and the LLM-judge scores in ../../Major_Revision/LLM_Judges/scripts/judge_scores.csv.
+# Output: ../../Major_Revision/Association/results/correlation_table.csv. No GPU or API keys needed.
+cd ../../Major_Revision/Association/scripts
+python3 create_table.py
+cd - > /dev/null
 
 # ---------------------------------------------------------------------------
 # (Optional) To regenerate the per-model results from scratch instead of using
@@ -45,3 +45,4 @@ python3 create_correlation_table.py
 #   cd ..
 #
 # Then re-run this script to rebuild the table from the fresh data.
+# Retrieval MRR scores (retrieval/mrr_scores_rerun.csv) are shipped as computed; their embedding caches are not included.

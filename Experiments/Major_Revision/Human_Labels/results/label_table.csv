@@ -1,0 +1,4 @@
+dimension,pairs,human_A,human_B,human_A_sonar_A,human_A_sonar_B,human_A_sonar_tie,human_B_sonar_B,human_B_sonar_A,human_B_sonar_tie,agreement,balanced_agreement,majority_label_baseline
+Correctness,84,44,40,41,3,0,40,0,0,96.4,96.6,52.4
+Abstraction,86,32,54,30,2,0,45,9,0,87.2,88.5,62.8
+Conciseness,89,33,56,32,1,0,45,11,0,86.5,88.7,62.9

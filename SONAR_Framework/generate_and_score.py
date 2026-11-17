@@ -23,7 +23,7 @@ GEMINI_MODEL    = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
 
 KIMI_API_KEY  = os.environ.get("KIMI_API_KEY")
 KIMI_BASE_URL = os.environ.get("KIMI_BASE_URL", "https://api.moonshot.ai/v1")
-KIMI_MODEL    = os.environ.get("KIMI_MODEL", "kimi-k2")
+KIMI_MODEL    = os.environ.get("KIMI_MODEL", "kimi-k2.5")
 
 _FEW_SHOT_EX1_CODE = '''\
 def has_duplicates(lst):
@@ -141,13 +141,14 @@ class GeminiModel:
         else:
             self._client = genai.Client(vertexai=True, project=GEMINI_PROJECT, location=GEMINI_LOCATION)
 
-    def _call(self, contents: str, retries: int = 5, call_timeout: int = 120) -> str:
+    def _call(self, contents: str, retries: int = 5, call_timeout: int = 120, config=None) -> str:
         import concurrent.futures
         delay = 30
         for attempt in range(retries):
             try:
                 ex = concurrent.futures.ThreadPoolExecutor(max_workers=1)
-                fut = ex.submit(self._client.models.generate_content, model=GEMINI_MODEL, contents=contents)
+                fut = ex.submit(self._client.models.generate_content, model=GEMINI_MODEL, contents=contents,
+                                config=config)
                 try:
                     return fut.result(timeout=call_timeout).text
                 except concurrent.futures.TimeoutError:
@@ -167,10 +168,12 @@ class GeminiModel:
     def summarize(self, code: str, prompt: str) -> str:
         return _clean_summary(self._call(prompt.format(code=code)))
 
-    def generate(self, summary: str, func_sig: str) -> str:
-        from calculate_abstraction import CODE_GEN_SYSTEM
+    def generate(self, summary: str, func_sig: str, temperature=None) -> str:
+        from calculate_abstraction import CODE_GEN_SYSTEM, TOP_P
+        from google.genai import types
         prompt = f"{CODE_GEN_SYSTEM}\n\nSummary: {summary}\nFunction signature:\n{func_sig}\n\nOutput only code."
-        return _extract_code(self._call(prompt), func_sig=func_sig)
+        config = None if temperature is None else types.GenerateContentConfig(temperature=temperature, top_p=TOP_P)
+        return _extract_code(self._call(prompt, config=config), func_sig=func_sig)
 
     def compress(self, summary: str) -> str:
         return _clean_summary(self._call(COMPRESS_PROMPT.format(summary=summary), call_timeout=240))
@@ -423,7 +426,8 @@ def _load_entries():
             for line in f:
                 if line.strip():
                     r = json.loads(line)
-                    yield r["task_id"], r["code"]
+                    task_id = r["task_id"]
+                    yield (f"{path.stem}_{task_id}" if isinstance(task_id, int) else task_id), r["code"]
 
 
 def main():

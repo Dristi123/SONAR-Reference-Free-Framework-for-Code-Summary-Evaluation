@@ -1,0 +1,4 @@
+task,pairs,functions,abstraction_change_pp,outcome_change_pct,wilcoxon_p,pairs_abstraction_up,outcome_improved,outcome_tied,outcome_worse
+MRR,437,60,10.64,3.29,0.01368,332,195,7,130
+Edit Dist.,482,64,10.08,7.69,0.001728,362,211,3,148
+Speedup,302,44,11.33,40.61,0.7687,240,117,1,122

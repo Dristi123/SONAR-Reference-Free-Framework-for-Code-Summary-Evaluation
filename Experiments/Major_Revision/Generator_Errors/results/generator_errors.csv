@@ -1,0 +1,6 @@
+analysis,generator,measure,value
+"Same summary, different generators",gemini,wrong code on summaries another generator implemented correctly,5.1% (147/2874)
+"Same summary, different generators",qwen,wrong code on summaries another generator implemented correctly,5.1% (145/2827)
+"Same summary, different generators",olmo,wrong code on summaries another generator implemented correctly,6.4% (184/2870)
+"Same generator, different summaries",gemini,zero-scored summaries whose function has a correctly implemented summary,84.4% (493/584)
+"Same generator, different summaries",gemini,functions with a zero-scored summary that also have a correctly implemented summary,90.9% (90/99)
