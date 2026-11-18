@@ -14,7 +14,7 @@ PROMPTS = json.loads((SCRIPT_DIR / "judge_prompts.json").read_text())
 OUT = SCRIPT_DIR / "judge_scores.csv"
 
 sys.path.insert(0, str(EXPERIMENTS / "RQ1" / "scripts"))
-from rq1_llm_only_baseline import CLAUDE_MODEL, _parse_score, _score_prompt  # noqa: E402
+from rq1_llm_only_baseline import CLAUDE_MODEL, _parse_score, _score_prompt
 
 GPT_MODEL = "gpt-4o-2024-08-06"
 DIMS = {"crupi": ["content_adequacy", "conciseness", "fluency"],
@@ -49,7 +49,6 @@ def coderpe(client, code, summary):
             model=GPT_MODEL, messages=[{"role": "user", "content": prompt}], response_format={"type": "text"},
             temperature=1, max_completion_tokens=1000, top_p=1, frequency_penalty=0, presence_penalty=0, store=False,
         ).choices[0].message.content.strip()
-        # The labelled score first: CodeRPE's last-integer rule misreads replies that add an explanation.
         labelled = re.search(re.escape(d["name"]) + r"[^0-9\n]{0,30}?([0-4])\b", text, re.I)
         if labelled:
             out[d["name"].lower()] = int(labelled.group(1))

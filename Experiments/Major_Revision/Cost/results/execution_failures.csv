@@ -1,7 +1,7 @@
 dimension,failure,share
 Correctness,Stub code (scored 0 without fuzzing),2.0% (2/100)
 Correctness,Fuzzing comparison without a valid result (left unscored),0.0% (0/100)
-Conciseness,Stub code (scored 0 without fuzzing),0.0% (0/317)
-Conciseness,Fuzzing comparison without a valid result (left unscored),0.3% (1/317)
+Conciseness,Stub code (scored 0 without fuzzing),0.0% (0/300)
+Conciseness,Fuzzing comparison without a valid result (left unscored),0.3% (1/300)
 Abstraction,Function without a Joern graph (AST fallback),0.6% (5/900)
 Abstraction,Local generation cut at the 512-token limit,0.8% (5/600)

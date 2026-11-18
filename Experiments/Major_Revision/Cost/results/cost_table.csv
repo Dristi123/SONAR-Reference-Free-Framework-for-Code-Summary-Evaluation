@@ -18,5 +18,5 @@ Abstraction,Joern (9 functions),seconds per summary,4.68,4.60
 Abstraction,Pairwise similarity (36 pairs),seconds per summary,0.03,0.03
 Correctness,Differential fuzzing,seconds per comparison (3 runs),0.47,0.27
 Correctness,Differential fuzzing,seconds per summary,0.47,0.27
-Conciseness,Differential fuzzing,seconds per comparison (3 runs),1.01,0.27
-Conciseness,Differential fuzzing,seconds per summary,3.21,0.81
+Conciseness,Differential fuzzing,seconds per comparison (3 runs),1.05,0.27
+Conciseness,Differential fuzzing,seconds per summary,3.16,0.81

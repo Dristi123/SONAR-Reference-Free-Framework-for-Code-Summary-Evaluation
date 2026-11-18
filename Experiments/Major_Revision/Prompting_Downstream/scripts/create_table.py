@@ -11,8 +11,8 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = SCRIPT_DIR.parent / "results"
 
 sys.path.insert(0, str(SCRIPT_DIR.parents[2] / "RQ2" / "scripts"))
-from downstream import load_meta  # noqa: E402
-from downstream import outcomes as downstream_outcomes  # noqa: E402
+from downstream import load_meta
+from downstream import outcomes as downstream_outcomes
 
 TASKS = ["MRR", "Edit Dist.", "Speedup"]
 ID_RE = re.compile(r"^(.+)_([a-z0-9_]+?)_(Vanilla|dim_aware|few_shot)_(big_models|small_models)$")

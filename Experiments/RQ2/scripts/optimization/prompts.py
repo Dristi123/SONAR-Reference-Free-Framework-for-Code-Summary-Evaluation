@@ -1,4 +1,3 @@
-
 SYSTEM = (
     "You are an expert Python engineer specializing in performance optimization. "
     "Given a function description and its signature, write a correct Python implementation "

@@ -25,10 +25,29 @@ ROWS = [("Repeated Runs", "Run 1", ("default", "0")), ("Repeated Runs", "Run 2",
         ("Pool Size", "V = 2 (6 implementations)", ("pool_6", "1")),
         ("Pool Size", "V = 1 (3 implementations)", ("pool_3", "1")),
         ("Context-Only", "Empty summary", None)]
+PAIR_SETTINGS = {"Run 1": "run_1", "Run 2": "run_2", "Temp. = 0": "T0.0", "Temp. = 0.5": "T0.5",
+                 "Temp. = (0.2, 0.5, 0.8)": "set_low", "Temp. = (0.8, 1.0, 1.2)": "set_high",
+                 "Top-p = 0.5": "P0.5", "Top-p = 0.8": "P0.8", "G: Qwen": "G_qwen", "G: OLMo": "G_olmo",
+                 "P: Qwen": "P_qwen", "P: OLMo": "P_olmo", "Gemini -> Kimi K2.5": "swap_gemini_to_kimi",
+                 "Qwen -> Codestral-22B": "swap_qwen_to_codestral", "OLMo -> GLM-4-32B": "swap_olmo_to_glm",
+                 "All three replaced (Kimi, Codestral, GLM)": "swap_all", "V = 2 (6 implementations)": "pool_6",
+                 "V = 1 (3 implementations)": "pool_3"}
 
 
 def fmt(x):
-    return str(Decimal(f"{x:.4f}").quantize(Decimal("0.001"), ROUND_HALF_UP))
+    return str(Decimal(repr(float(x))).quantize(Decimal("0.001"), ROUND_HALF_UP))
+
+
+def fmt_pp(x):
+    return str(Decimal(repr(float(x))).quantize(Decimal("0.1"), ROUND_HALF_UP))
+
+
+def agreement(rows):
+    hits = 0
+    for r in rows:
+        a, b = float(r["score_a"]), float(r["score_b"])
+        hits += a != b and ("A" if a > b else "B") == r["human_verdict"]
+    return 100 * hits / len(rows)
 
 
 def read_csv(path):
@@ -63,7 +82,11 @@ def main():
             selection[r["dimension"], r["setting"]].append((float(r["original"]), float(r["alternative"])))
     empty = defaultdict(list)
     for r in read_csv(SCRIPT_DIR / "empty_summary_scores.csv"):
-        empty[r["dimension"]].append((float(r["reported"]), float(r["empty_summary"])))
+        empty[r["dimension"]].append((float(r["original"]), float(r["empty_summary"])))
+    pairs = defaultdict(list)
+    for r in read_csv(SCRIPT_DIR / "human_pair_scores.csv"):
+        pairs[r["dimension"], r["setting"]].append(r)
+    original = {d: agreement(pairs[d, "original"]) for d in DIMS}
 
     table = []
     for factor, label, key in ROWS:
@@ -80,17 +103,24 @@ def main():
                 if key[0].startswith("pool_"):
                     base = scores[d, "pool_9", key[1]]
                 else:
-                    base = scores[d, "reported", ""]
+                    base = scores[d, "original", ""]
                 cell = mad_spearman([(base[i], got[i]) for i in sample if i in got and i in base])
             else:
                 continue
             row[f"{d}_mad"] = fmt(cell["mad"])
             row[f"{d}_spearman"] = fmt(cell["spearman"])
             row[f"{d}_spearman_95ci"] = f"[{fmt(cell['ci'][0])}, {fmt(cell['ci'][1])}]"
+            if label in PAIR_SETTINGS:
+                acc = agreement(pairs[d, PAIR_SETTINGS[label]])
+                row[f"{d}_agreement"] = fmt_pp(acc)
+                delta = f"{acc - original[d]:+.1f}"
+                row[f"{d}_agreement_delta"] = "0.0" if delta[1:] == "0.0" else delta
         table.append(row)
+    table.append({"factor": "Original", "configuration": "Human agreement (RQ1)",
+                  **{f"{d}_agreement": fmt_pp(original[d]) for d in DIMS}})
 
     header = ["factor", "configuration"] + [f"{d}_{c}" for d in DIMS for c in
-                                             ("mad", "spearman", "spearman_95ci")]
+                                             ("mad", "spearman", "spearman_95ci", "agreement", "agreement_delta")]
     RESULTS_DIR.mkdir(exist_ok=True)
     with open(RESULTS_DIR / "sensitivity_table.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, header)

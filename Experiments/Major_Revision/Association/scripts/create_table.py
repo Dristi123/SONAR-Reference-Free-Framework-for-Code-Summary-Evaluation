@@ -81,7 +81,7 @@ def main():
         for fam in JUDGES + ["reference"]:
             for dim in FAMILIES[fam]:
                 m = f"{fam}:{dim}"
-                w.writerow([NAMES[fam], DIMS[dim] + ("†" if m in CONCISENESS_ROWS else ""),
+                w.writerow([NAMES[fam], DIMS[dim],
                             *[cell(*fits[metric, m]) for metric in METRICS]])
 
 

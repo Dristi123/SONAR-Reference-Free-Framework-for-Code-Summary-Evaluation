@@ -5,8 +5,8 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
-import matplotlib.pyplot as plt  # noqa: E402
-from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
+import matplotlib.pyplot as plt
+from matplotlib.colors import LinearSegmentedColormap
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = SCRIPT_DIR.parent / "results"

@@ -7,6 +7,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 RESULTS_DIR = SCRIPT_DIR.parent / "results"
 NO_VALID_RESULT = {"timeout", "all_discarded", "no_valid_inputs", "exec_error", "harness_error"}
 USD_PER_M_INPUT, USD_PER_M_OUTPUT = 0.30, 2.50
+FUNCTIONS_PER_SUMMARY = 9
 CALLS = {"Correctness": {"gemini": 1}, "Conciseness": {"gemini": 7},
          "Abstraction": {"gemini": 3, "olmo": 3, "qwen": 3}}
 
@@ -88,7 +89,7 @@ def main():
     rows.append(("Abstraction", "Pairwise similarity (36 pairs)", "seconds per summary",
                  *stats([float(r["similarity_seconds"]) for r in joern])))
 
-    fuzz = read_csv(SCRIPT_DIR / "fuzzing_runs.csv")
+    fuzz = [r for r in read_csv(SCRIPT_DIR / "fuzzing_runs.csv") if int(r["comparison"]) < 3]
     for dim in ("correctness", "conciseness"):
         runs = [r for r in fuzz if r["dimension"] == dim]
         fuzzed = [float(r["seconds"]) for r in runs if r["status"] != "stub"]
@@ -105,7 +106,7 @@ def main():
         failures.append((dim.capitalize(), "Stub code (scored 0 without fuzzing)", pct(status["stub"], n)))
         failures.append((dim.capitalize(), "Fuzzing comparison without a valid result (left unscored)",
                          pct(sum(v for k, v in status.items() if k in NO_VALID_RESULT), n)))
-    functions = sum(int(r["functions"]) for r in joern)
+    functions = FUNCTIONS_PER_SUMMARY * len(joern)
     no_graph = functions - sum(int(r["functions_with_graph"]) for r in joern)
     failures.append(("Abstraction", "Function without a Joern graph (AST fallback)", pct(no_graph, functions)))
     capped = sum(int(c["output_tokens"]) >= 512 for c in local)

@@ -25,21 +25,21 @@ pip install -r requirements.txt
 ## :file_folder: Repository Structure
 | Folder | Contents |
 |---|---|
-| [`SONAR_Framework`](SONAR_Framework) | The SONAR tool: summary generation and the four scorers |
-| [`Experiments/RQ1`](Experiments/RQ1) | Human-labelled pairs, SONAR and LLM-judge scores, Table I |
-| [`Experiments/RQ2`](Experiments/RQ2) | Downstream task data and pipelines (retrieval, translation, optimization, test oracle generation) |
-| [`Experiments/RQ3`](Experiments/RQ3) | Per-LLM and per-prompting-strategy SONAR scores, Figures 5 and 6 |
-| [`Experiments/Major_Revision`](Experiments/Major_Revision) | Data, code and results of the experiments added in the major revision |
+| `SONAR_Framework` | The SONAR tool: summary generation and the four scorers |
+| `Experiments/RQ1` | Human-labelled pairs, SONAR and LLM-judge scores, Table I |
+| `Experiments/RQ2` | Downstream task data and pipelines (retrieval, translation, optimization, test oracle generation) |
+| `Experiments/RQ3` | Per-LLM and per-prompting-strategy SONAR scores, Figures 5 and 6 |
+| `Experiments/Major_Revision` | Data, code and results of the experiments added in the major revision |
 
 | `Experiments/Major_Revision/` | Contents |
 |---|---|
-| [`Association`](Experiments/Major_Revision/Association) | Confounder-controlled partial Spearman correlations (Table III of the paper) |
-| [`LLM_Judges`](Experiments/Major_Revision/LLM_Judges) | LLM-as-a-judge baselines (Crupi et al., CodeRPE, Claude Opus 4.8): prompts, script and scores |
-| [`Sensitivity`](Experiments/Major_Revision/Sensitivity) | Sensitivity analysis (Table IV of the paper, Appendix Table I) |
-| [`Prompting_Downstream`](Experiments/Major_Revision/Prompting_Downstream) | Downstream effect of prompting for Abstraction (Appendix Table II) |
-| [`Generator_Errors`](Experiments/Major_Revision/Generator_Errors) | Code-generation error analysis (Appendix Table III) |
-| [`Human_Labels`](Experiments/Major_Revision/Human_Labels) | Label prevalence and confusion matrices for RQ1 (Appendix Table IV) |
-| [`Cost`](Experiments/Major_Revision/Cost) | Cost per summary (Appendix, Cost per summary) |
+| `Association` | Confounder-controlled partial Spearman correlations (Table III of the paper) |
+| `LLM_Judges` | LLM-as-a-judge baselines (Crupi et al., CodeRPE, Claude Opus 4.8): prompts, script and scores |
+| `Sensitivity` | Sensitivity analysis (Table IV of the paper, Appendix Table I) |
+| `Prompting_Downstream` | Downstream effect of prompting for Abstraction (Appendix Table II) |
+| `Generator_Errors` | Code-generation error analysis (Appendix Table III) |
+| `Human_Labels` | Label prevalence and confusion matrices for RQ1 (Appendix Table IV) |
+| `Cost` | Cost per summary (Appendix, Cost per summary) |
 
 ## :bar_chart: Reproducing RQ1 results
 ```bash
@@ -63,7 +63,7 @@ cd Experiments/RQ2/scripts
 chmod +x run.sh
 ./run.sh
 ```
-This generates Table III (partial Spearman correlation between each method and downstream performance, with 95% bootstrap CIs) in [`Experiments/Major_Revision/Association/results/correlation_table.csv`](Experiments/Major_Revision/Association/results/correlation_table.csv). It uses the downstream results in [`Experiments/RQ2/scripts`](Experiments/RQ2/scripts) and the LLM-judge scores in [`Experiments/Major_Revision/LLM_Judges/scripts/judge_scores.csv`](Experiments/Major_Revision/LLM_Judges/scripts/judge_scores.csv); see [`run.sh`](Experiments/RQ2/scripts/run.sh) to regenerate the downstream results and [`run_judges.py`](Experiments/Major_Revision/LLM_Judges/scripts/run_judges.py) to regenerate the judge scores.
+This generates Table III (partial Spearman correlation between each method and downstream performance, with 95% bootstrap CIs) in [`Experiments/Major_Revision/Association/results/correlation_table.csv`](Experiments/Major_Revision/Association/results/correlation_table.csv). It uses the downstream results in `Experiments/RQ2/scripts` and the LLM-judge scores in [`Experiments/Major_Revision/LLM_Judges/scripts/judge_scores.csv`](Experiments/Major_Revision/LLM_Judges/scripts/judge_scores.csv); see [`run.sh`](Experiments/RQ2/scripts/run.sh) to regenerate the downstream results and [`run_judges.py`](Experiments/Major_Revision/LLM_Judges/scripts/run_judges.py) to regenerate the judge scores.
 
 Retrieval MRR scores come from a rerun of the retrieval experiment and are provided in two formats: [`mrr_scores_rerun.csv`](Experiments/RQ2/scripts/retrieval/mrr_scores_rerun.csv) and [`mrr_scores_rerun.jsonl`](Experiments/RQ2/scripts/retrieval/mrr_scores_rerun.jsonl) (one row per summary and retriever: UniXcoder, CodeT5+, GraphCodeBERT).
 
@@ -97,7 +97,7 @@ cd Experiments/RQ3/scripts
 chmod +x run.sh
 ./run.sh
 ```
-This generates Figure 5 and Figure 6 in [`Experiments/RQ3/results`](Experiments/RQ3/results).
+This generates Figure 5 and Figure 6 in `Experiments/RQ3/results`.
 
 ![Figure 5 — RQ3 spider chart](Experiments/RQ3/results/spider_chart.png)
 ![Figure 6 — RQ3 bar chart](Experiments/RQ3/results/bar_chart.png)
@@ -137,7 +137,7 @@ This generates Table IV (MAD and Spearman ρ under each configuration) in [`Expe
 | Empty summary | 0.446 | 0.234 | 0.295 | 0.307 | 0.270 | 0.271 |
 
 ## :scroll: Reproducing the Appendix tables
-Each analysis folder in [`Experiments/Major_Revision`](Experiments/Major_Revision) (all except `LLM_Judges`, which holds the judge scores and [`run_judges.py`](Experiments/Major_Revision/LLM_Judges/scripts/run_judges.py)) has a `scripts/create_table.py` that writes its table to the folder's `results/`:
+Each analysis folder in `Experiments/Major_Revision` (all except `LLM_Judges`, which holds the judge scores and [`run_judges.py`](Experiments/Major_Revision/LLM_Judges/scripts/run_judges.py)) has a `scripts/create_table.py` that writes its table to the folder's `results/`:
 ```bash
 cd Experiments/Major_Revision/<Folder>/scripts
 python3 create_table.py
@@ -145,7 +145,7 @@ python3 create_table.py
 
 ---
 ## :robot: Running the SONAR Framework
-[`SONAR_Framework`](SONAR_Framework) is the standalone tool underlying all four RQs above: for each task in the bundled benchmark (`SONAR_Framework/datasets`, 500 functions across HumanEval, MBPP, BigCodeBench, and TheVault), it generates summaries with any of 11 models and scores those summaries on all four SONAR dimensions (correctness, abstraction, conciseness, fluency).
+`SONAR_Framework` is the standalone tool underlying all four RQs above: for each task in the bundled benchmark (`SONAR_Framework/datasets`, 500 functions across HumanEval, MBPP, BigCodeBench, and TheVault), it generates summaries with any of 11 models and scores those summaries on all four SONAR dimensions (correctness, abstraction, conciseness, fluency).
 ```bash
 cd SONAR_Framework
 chmod +x run.sh
@@ -176,24 +176,24 @@ Cells: MAD / Spearman ρ [95% CI] / human agreement (Δ pp relative to the origi
 
 | Factor | Setting | Correctness | Conciseness | Abstraction |
 |---|---|---|---|---|
-| Repeated Runs | Run 1 | 0.049 / 0.912 [0.813, 0.983] / 91.7% (-4.8) | 0.055 / 0.868 [0.776, 0.929] / 84.3% (-2.2) | 0.040 / 0.943 [0.893, 0.969] / 84.9% (-2.3) |
-|  | Run 2 | 0.054 / 0.899 [0.790, 0.977] / 89.3% (-7.1) | 0.061 / 0.859 [0.765, 0.922] / 83.1% (-3.4) | 0.045 / 0.942 [0.898, 0.965] / 83.7% (-3.5) |
-| Decoding Parameters | Temp. = 0 | 0.035 / 0.966 [0.898, 1.000] / 91.7% (-4.8) | 0.051 / 0.877 [0.787, 0.934] / 84.3% (-2.2) | — |
+| Repeated Runs | Run 1 | 0.049 / 0.912 [0.813, 0.983] / 94.0% (-2.4) | 0.055 / 0.868 [0.776, 0.929] / 84.3% (-2.2) | 0.040 / 0.943 [0.893, 0.969] / 83.7% (-3.5) |
+|  | Run 2 | 0.054 / 0.899 [0.790, 0.977] / 92.9% (-3.6) | 0.061 / 0.859 [0.765, 0.922] / 83.1% (-3.4) | 0.045 / 0.942 [0.898, 0.965] / 84.9% (-2.3) |
+| Decoding Parameters | Temp. = 0 | 0.035 / 0.966 [0.898, 1.000] / 92.9% (-3.6) | 0.051 / 0.877 [0.787, 0.934] / 85.4% (-1.1) | — |
 |  | Temp. = 0.5 | 0.035 / 0.903 [0.795, 0.984] / 91.7% (-4.8) | 0.048 / 0.869 [0.781, 0.928] / 83.1% (-3.4) | — |
-|  | Temp. = (0.2, 0.5, 0.8) | — | — | 0.048 / 0.933 [0.888, 0.958] / 87.2% (0.0) |
-|  | Temp. = (0.8, 1.0, 1.2) | — | — | 0.049 / 0.937 [0.893, 0.959] / 84.9% (-2.3) |
-|  | Top-p = 0.5 | 0.040 / 0.927 [0.834, 0.996] / 92.9% (-3.6) | 0.040 / 0.875 [0.784, 0.932] / 91.0% (+4.5) | 0.048 / 0.924 [0.862, 0.959] / 84.9% (-2.3) |
-|  | Top-p = 0.8 | 0.047 / 0.892 [0.786, 0.975] / 92.9% (-3.6) | 0.068 / 0.859 [0.774, 0.916] / 88.6% (+2.1) | 0.048 / 0.914 [0.850, 0.951] / 84.9% (-2.3) |
-| Model Selection | G: Qwen | 0.042 / 0.891 [0.860, 0.919] / 90.3% (-6.1)† | 0.037 / 0.939 [0.927, 0.950] / 83.5% (-3.0)† | — |
-|  | G: OLMo | 0.055 / 0.878 [0.846, 0.907] / 91.7% (-4.8)† | 0.036 / 0.943 [0.931, 0.953] / 84.3% (-2.2)† | — |
-|  | P: Qwen | — | 0.052 / 0.924 [0.908, 0.937] / 84.9% (-1.6)† | — |
-|  | P: OLMo | — | 0.047 / 0.931 [0.917, 0.943] / 88.8% (+2.2)† | — |
-|  | Gemini → Kimi K2.5 | — | — | 0.069 / 0.865 [0.776, 0.920] / 83.7% (-3.5) |
-|  | Qwen → Codestral-22B | — | — | 0.063 / 0.894 [0.816, 0.937] / 83.7% (-3.5) |
-|  | OLMo → GLM-4-32B | — | — | 0.061 / 0.912 [0.858, 0.940] / 86.0% (-1.2) |
-|  | All three replaced (Kimi, Codestral, GLM) | — | — | 0.075 / 0.867 [0.796, 0.909] / 82.6% (-4.7) |
+|  | Temp. = (0.2, 0.5, 0.8) | — | — | 0.048 / 0.933 [0.888, 0.958] / 86.0% (-1.2) |
+|  | Temp. = (0.8, 1.0, 1.2) | — | — | 0.049 / 0.937 [0.893, 0.959] / 86.0% (-1.2) |
+|  | Top-p = 0.5 | 0.040 / 0.927 [0.834, 0.996] / 95.2% (-1.2) | 0.040 / 0.875 [0.784, 0.932] / 91.0% (+4.5) | 0.048 / 0.924 [0.862, 0.959] / 86.0% (-1.2) |
+|  | Top-p = 0.8 | 0.047 / 0.892 [0.786, 0.975] / 91.7% (-4.8) | 0.068 / 0.859 [0.774, 0.916] / 88.6% (+2.1) | 0.048 / 0.914 [0.850, 0.951] / 86.0% (-1.2) |
+| Model Selection | G: Qwen | 0.042 / 0.891 [0.860, 0.919] / 90.5% (-6.0) | 0.037 / 0.939 [0.927, 0.950] / 82.6% (-4.0) | — |
+|  | G: OLMo | 0.055 / 0.878 [0.846, 0.907] / 83.1% (-13.3) | 0.036 / 0.943 [0.931, 0.953] / 84.3% (-2.2) | — |
+|  | P: Qwen | — | 0.052 / 0.924 [0.908, 0.937] / 82.0% (-4.5) | — |
+|  | P: OLMo | — | 0.047 / 0.931 [0.917, 0.943] / 88.8% (+2.2) | — |
+|  | Gemini → Kimi K2.5 | — | — | 0.069 / 0.865 [0.776, 0.920] / 82.6% (-4.7) |
+|  | Qwen → Codestral-22B | — | — | 0.063 / 0.894 [0.816, 0.937] / 82.6% (-4.7) |
+|  | OLMo → GLM-4-32B | — | — | 0.061 / 0.912 [0.858, 0.940] / 87.2% (0.0) |
+|  | All three replaced (Kimi, Codestral, GLM) | — | — | 0.075 / 0.867 [0.796, 0.909] / 84.9% (-2.3) |
 | Pool Size | V = 2 (6 implementations) | — | — | 0.024 / 0.978 [0.950, 0.991] / 84.9% (-2.3) |
-|  | V = 1 (3 implementations) | — | — | 0.067 / 0.946 [0.902, 0.968] / 83.7% (-3.5) |
+|  | V = 1 (3 implementations) | — | — | 0.067 / 0.946 [0.902, 0.968] / 84.9% (-2.3) |
 | Context-Only | Empty summary | 0.446 / 0.234 [0.206, 0.262] | 0.295 / 0.307 [0.278, 0.336] | 0.270 / 0.271 [0.246, 0.296] |
 | Original | Human agreement (RQ1) | 96.4% | 86.5% | 87.2% |
 
@@ -216,7 +216,7 @@ Cells: MAD / Spearman ρ [95% CI] / human agreement (Δ pp relative to the origi
 
 ### Table III: Code-generation errors
 **Experimental setup**
-- Every downstream-pool summary is scored for Correctness with Gemini 2.5 Flash, Qwen2.5-Coder-32B and OLMo-3.1-32B as the generator.
+- Every summary in the pool is scored for Correctness with Gemini 2.5 Flash, Qwen2.5-Coder-32B and OLMo-3.1-32B as the generator.
 - Correct: Correctness ≥ 0.95; wrong: Correctness < 0.5.
 
 | Analysis | Generator | Measure | Value |
@@ -240,7 +240,7 @@ Majority-label baseline: agreement obtained by always choosing the more frequent
 ![Confusion matrices of SONAR's preference against the human label](Experiments/Major_Revision/Human_Labels/results/confusion_matrices.png)
 
 ### Configurations, Settings and Cost
-These are the defaults in [`SONAR_Framework`](SONAR_Framework), used for every reported score unless an RQ4 setting changes them.
+These are the defaults in `SONAR_Framework`, used for every reported score unless an RQ4 setting changes them.
 
 #### Scoring dimensions
 | Dimension | Models | Calls per summary | Decoding |
@@ -249,6 +249,8 @@ These are the defaults in [`SONAR_Framework`](SONAR_Framework), used for every r
 | Conciseness | Compressor P and generator G: Gemini 2.5 Flash | 3 P calls, 4 G calls, 3 fuzzing comparisons | T = 1.0, top-p = 0.95 |
 | Abstraction | Pool: Gemini 2.5 Flash, OLMo-3.1-32B-Instruct, Qwen2.5-Coder-32B | 3 samples × 3 models = 9 calls | One sample per model at each of T = 0.5, 0.8, 1.0; top-p = 0.95 |
 | Fluency | GPT-2 (124M) | 1 forward pass | — |
+
+Prompts: code generation (G and the Abstraction pool), `CODE_GEN_SYSTEM` in [`calculate_abstraction.py`](SONAR_Framework/calculate_abstraction.py); compression (P), `COMPRESS_PROMPT` in [`generate_and_score.py`](SONAR_Framework/generate_and_score.py).
 
 #### Differential fuzzing (Correctness and Conciseness)
 | Setting | Value |
@@ -321,15 +323,15 @@ The number of model calls can be reduced, e.g. with fewer compressions or a smal
 | Abstraction | Pairwise similarity (36 pairs) | seconds per summary | 0.03 | 0.03 |
 | Correctness | Differential fuzzing | seconds per comparison (3 runs) | 0.47 | 0.27 |
 | Correctness | Differential fuzzing | seconds per summary | 0.47 | 0.27 |
-| Conciseness | Differential fuzzing | seconds per comparison (3 runs) | 1.01 | 0.27 |
-| Conciseness | Differential fuzzing | seconds per summary | 3.21 | 0.81 |
+| Conciseness | Differential fuzzing | seconds per comparison (3 runs) | 1.05 | 0.27 |
+| Conciseness | Differential fuzzing | seconds per summary | 3.16 | 0.81 |
 
 | Dimension | Execution failure | Share |
 |---|---|---|
 | Correctness | Stub code (scored 0 without fuzzing) | 2.0% (2/100) |
 | Correctness | Fuzzing comparison without a valid result (left unscored) | 0.0% (0/100) |
-| Conciseness | Stub code (scored 0 without fuzzing) | 0.0% (0/317) |
-| Conciseness | Fuzzing comparison without a valid result (left unscored) | 0.3% (1/317) |
+| Conciseness | Stub code (scored 0 without fuzzing) | 0.0% (0/300) |
+| Conciseness | Fuzzing comparison without a valid result (left unscored) | 0.3% (1/300) |
 | Abstraction | Function without a Joern graph (AST fallback) | 0.6% (5/900) |
 | Abstraction | Local generation cut at the 512-token limit | 0.8% (5/600) |
 

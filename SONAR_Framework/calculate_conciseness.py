@@ -17,7 +17,7 @@ def calculate_conciseness(
     code_generator,
     compressor,
     template_path: Path,
-    threshold: float = 0.95,
+    threshold: float = 1.0,
 ) -> Dict[str, Any]:
     compressed_summaries = [compressor(summary) for _ in range(N_COMPRESSIONS)]
     code_a = code_generator(summary, func_sig)
@@ -69,7 +69,7 @@ def score_conciseness(
     code_generator,
     compressor,
     template_path: Path,
-    threshold: float = 0.95,
+    threshold: float = 1.0,
 ) -> Optional[float]:
     result = calculate_conciseness(
         summary=summary,
