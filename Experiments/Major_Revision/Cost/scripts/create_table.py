@@ -66,16 +66,16 @@ def main():
     for r in read_csv(SCRIPT_DIR / "gemini_calls.csv"):
         gemini[r["dimensions"]].append(r)
     for dims, calls in gemini.items():
-        name = f"Gemini 2.5 Flash ({dims})"
+        dimension = " + ".join(d.capitalize() for d in dims.split("+"))
         for col, measure in (("input_tokens", "input tokens per call"), ("output_tokens", "output tokens per call"),
                              ("thinking_tokens", "thinking tokens per call"), ("seconds", "seconds per call")):
-            rows.append(("Gemini calls", name, measure, *stats([float(c[col]) for c in calls])))
+            rows.append((dimension, "Gemini 2.5 Flash", measure, *stats([float(c[col]) for c in calls])))
 
     local = read_csv(SCRIPT_DIR / "local_calls.csv")
     per_summary = defaultdict(float)
     for model in ("olmo", "qwen"):
         calls = [c for c in local if c["model"] == model]
-        name = {"olmo": "OLMo-3.1-32B-Instruct", "qwen": "Qwen2.5-Coder-32B"}[model]
+        name = {"olmo": "OLMo 32B Instruct", "qwen": "Qwen 2.5 Coder 32B"}[model]
         for col, measure in (("input_tokens", "input tokens per call"), ("output_tokens", "output tokens per call"),
                              ("seconds", "seconds per call")):
             rows.append(("Abstraction", name, measure, *stats([float(c[col]) for c in calls])))

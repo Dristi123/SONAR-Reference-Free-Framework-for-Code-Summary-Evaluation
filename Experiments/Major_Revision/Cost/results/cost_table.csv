@@ -1,18 +1,18 @@
 dimension,component,measure,mean,median
-Gemini calls,Gemini 2.5 Flash (correctness+conciseness),input tokens per call,175.99,156.00
-Gemini calls,Gemini 2.5 Flash (correctness+conciseness),output tokens per call,149.04,109.00
-Gemini calls,Gemini 2.5 Flash (correctness+conciseness),thinking tokens per call,1216.19,581.00
-Gemini calls,Gemini 2.5 Flash (correctness+conciseness),seconds per call,7.30,3.86
-Gemini calls,Gemini 2.5 Flash (abstraction),input tokens per call,231.79,201.00
-Gemini calls,Gemini 2.5 Flash (abstraction),output tokens per call,131.81,110.00
-Gemini calls,Gemini 2.5 Flash (abstraction),thinking tokens per call,1484.72,597.00
-Gemini calls,Gemini 2.5 Flash (abstraction),seconds per call,7.92,3.73
-Abstraction,OLMo-3.1-32B-Instruct,input tokens per call,224.37,198.00
-Abstraction,OLMo-3.1-32B-Instruct,output tokens per call,91.06,63.00
-Abstraction,OLMo-3.1-32B-Instruct,seconds per call,5.81,4.03
-Abstraction,Qwen2.5-Coder-32B,input tokens per call,224.84,198.00
-Abstraction,Qwen2.5-Coder-32B,output tokens per call,77.41,63.00
-Abstraction,Qwen2.5-Coder-32B,seconds per call,3.97,3.23
+Correctness + Conciseness,Gemini 2.5 Flash,input tokens per call,175.99,156.00
+Correctness + Conciseness,Gemini 2.5 Flash,output tokens per call,149.04,109.00
+Correctness + Conciseness,Gemini 2.5 Flash,thinking tokens per call,1216.19,581.00
+Correctness + Conciseness,Gemini 2.5 Flash,seconds per call,7.30,3.86
+Abstraction,Gemini 2.5 Flash,input tokens per call,231.79,201.00
+Abstraction,Gemini 2.5 Flash,output tokens per call,131.81,110.00
+Abstraction,Gemini 2.5 Flash,thinking tokens per call,1484.72,597.00
+Abstraction,Gemini 2.5 Flash,seconds per call,7.92,3.73
+Abstraction,OLMo 32B Instruct,input tokens per call,224.37,198.00
+Abstraction,OLMo 32B Instruct,output tokens per call,91.06,63.00
+Abstraction,OLMo 32B Instruct,seconds per call,5.81,4.03
+Abstraction,Qwen 2.5 Coder 32B,input tokens per call,224.84,198.00
+Abstraction,Qwen 2.5 Coder 32B,output tokens per call,77.41,63.00
+Abstraction,Qwen 2.5 Coder 32B,seconds per call,3.97,3.23
 Abstraction,OLMo + Qwen (6 calls),seconds per summary,29.36,21.72
 Abstraction,Joern (9 functions),seconds per summary,4.68,4.60
 Abstraction,Pairwise similarity (36 pairs),seconds per summary,0.03,0.03

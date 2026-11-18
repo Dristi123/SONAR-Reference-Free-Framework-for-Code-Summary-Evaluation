@@ -234,7 +234,7 @@ Cells: MAD / Spearman ρ [95% CI] / human agreement (Δ pp relative to the origi
 
 ### Table III: Code-generation errors
 **Experimental setup**
-- The 3,891 downstream-task summaries are scored for functional similarity with Gemini 2.5 Flash, Qwen2.5-Coder-32B and OLMo-3.1-32B as the generator.
+- The 3,891 downstream-task summaries are scored for functional similarity with Gemini 2.5 Flash, Qwen 2.5 Coder 32B and OLMo 32B Instruct as the generator.
 - Correct: functional similarity ≥ 0.95; wrong: functional similarity < 0.5.
 
 | Analysis | Generator | Measure | Value |
@@ -265,7 +265,7 @@ These are the defaults in [`SONAR_Framework`](SONAR_Framework), used for every r
 |---|---|---|---|
 | Correctness | Generator G: Gemini 2.5 Flash | 1 G call, 1 fuzzing comparison | T = 1.0, top-p = 0.95 |
 | Conciseness | Compressor P and generator G: Gemini 2.5 Flash | 3 P calls, 4 G calls, 3 fuzzing comparisons | T = 1.0, top-p = 0.95 |
-| Abstraction | Pool: Gemini 2.5 Flash, OLMo-3.1-32B-Instruct, Qwen2.5-Coder-32B | 3 samples × 3 models = 9 calls | One sample per model at each of T = 0.5, 0.8, 1.0; top-p = 0.95 |
+| Abstraction | Pool: Gemini 2.5 Flash, OLMo 32B Instruct, Qwen 2.5 Coder 32B | 3 samples × 3 models = 9 calls | One sample per model at each of T = 0.5, 0.8, 1.0; top-p = 0.95 |
 | Fluency | GPT-2 (124M) | 1 forward pass | — |
 
 Prompts: code generation by G, `CODE_GEN_PROMPT` in [`generate_and_score.py`](SONAR_Framework/generate_and_score.py); code generation by the Abstraction pool, `CODE_GEN_SYSTEM` in [`calculate_abstraction.py`](SONAR_Framework/calculate_abstraction.py); compression (P), `COMPRESS_PROMPT` in [`generate_and_score.py`](SONAR_Framework/generate_and_score.py).
@@ -289,7 +289,7 @@ Prompts: code generation by G, `CODE_GEN_PROMPT` in [`generate_and_score.py`](SO
 |---|---|---|
 | Gemini 2.5 Flash | Vertex AI or Gemini API | API defaults |
 | Kimi K2.5 | OpenAI-compatible API | API defaults |
-| OLMo-3.1-32B-Instruct, Qwen2.5-Coder-32B, CodeGemma-7B-it, Mistral-7B-Instruct-v0.3, CodeLlama-13B-Instruct, Codestral-22B-v0.1, Phi-3.5-mini-instruct | Local weights, chat template | Greedy, 512 new tokens |
+| OLMo 32B Instruct, Qwen 2.5 Coder 32B, CodeGemma-7B-it, Mistral-7B-Instruct-v0.3, CodeLlama-13B-Instruct, Codestral-22B-v0.1, Phi-3.5-mini-instruct | Local weights, chat template | Greedy, 512 new tokens |
 | StarCoder2-3B | Local weights, completion prompt | Greedy, 128 new tokens; first paragraph kept |
 | CodeT5-base-sum-python | Local weights, code only | Beam search (4 beams), max length 64, repetition penalty 2.5 |
 
@@ -322,20 +322,20 @@ N.B. The number of model calls can be reduced with a smaller Abstraction pool, a
 
 | Dimension | Component | Measure | Mean | Median |
 |---|---|---|---|---|
-| Gemini calls | Gemini 2.5 Flash (correctness+conciseness) | input tokens per call | 175.99 | 156.00 |
-| Gemini calls | Gemini 2.5 Flash (correctness+conciseness) | output tokens per call | 149.04 | 109.00 |
-| Gemini calls | Gemini 2.5 Flash (correctness+conciseness) | thinking tokens per call | 1216.19 | 581.00 |
-| Gemini calls | Gemini 2.5 Flash (correctness+conciseness) | seconds per call | 7.30 | 3.86 |
-| Gemini calls | Gemini 2.5 Flash (abstraction) | input tokens per call | 231.79 | 201.00 |
-| Gemini calls | Gemini 2.5 Flash (abstraction) | output tokens per call | 131.81 | 110.00 |
-| Gemini calls | Gemini 2.5 Flash (abstraction) | thinking tokens per call | 1484.72 | 597.00 |
-| Gemini calls | Gemini 2.5 Flash (abstraction) | seconds per call | 7.92 | 3.73 |
-| Abstraction | OLMo-3.1-32B-Instruct | input tokens per call | 224.37 | 198.00 |
-| Abstraction | OLMo-3.1-32B-Instruct | output tokens per call | 91.06 | 63.00 |
-| Abstraction | OLMo-3.1-32B-Instruct | seconds per call | 5.81 | 4.03 |
-| Abstraction | Qwen2.5-Coder-32B | input tokens per call | 224.84 | 198.00 |
-| Abstraction | Qwen2.5-Coder-32B | output tokens per call | 77.41 | 63.00 |
-| Abstraction | Qwen2.5-Coder-32B | seconds per call | 3.97 | 3.23 |
+| Correctness + Conciseness | Gemini 2.5 Flash | input tokens per call | 175.99 | 156.00 |
+| Correctness + Conciseness | Gemini 2.5 Flash | output tokens per call | 149.04 | 109.00 |
+| Correctness + Conciseness | Gemini 2.5 Flash | thinking tokens per call | 1216.19 | 581.00 |
+| Correctness + Conciseness | Gemini 2.5 Flash | seconds per call | 7.30 | 3.86 |
+| Abstraction | Gemini 2.5 Flash | input tokens per call | 231.79 | 201.00 |
+| Abstraction | Gemini 2.5 Flash | output tokens per call | 131.81 | 110.00 |
+| Abstraction | Gemini 2.5 Flash | thinking tokens per call | 1484.72 | 597.00 |
+| Abstraction | Gemini 2.5 Flash | seconds per call | 7.92 | 3.73 |
+| Abstraction | OLMo 32B Instruct | input tokens per call | 224.37 | 198.00 |
+| Abstraction | OLMo 32B Instruct | output tokens per call | 91.06 | 63.00 |
+| Abstraction | OLMo 32B Instruct | seconds per call | 5.81 | 4.03 |
+| Abstraction | Qwen 2.5 Coder 32B | input tokens per call | 224.84 | 198.00 |
+| Abstraction | Qwen 2.5 Coder 32B | output tokens per call | 77.41 | 63.00 |
+| Abstraction | Qwen 2.5 Coder 32B | seconds per call | 3.97 | 3.23 |
 | Abstraction | OLMo + Qwen (6 calls) | seconds per summary | 29.36 | 21.72 |
 | Abstraction | Joern (9 functions) | seconds per summary | 4.68 | 4.60 |
 | Abstraction | Pairwise similarity (36 pairs) | seconds per summary | 0.03 | 0.03 |
