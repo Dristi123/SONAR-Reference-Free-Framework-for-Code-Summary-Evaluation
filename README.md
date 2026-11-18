@@ -239,11 +239,11 @@ Cells: MAD / Spearman ρ [95% CI] / human agreement (Δ pp relative to the origi
 
 | Analysis | Generator | Measure | Value |
 |---|---|---|---|
-| Same summary, different generators | Gemini | Wrong code on summaries another generator implemented correctly | 5.1% (147/2,874) |
-| | Qwen | | 5.1% (145/2,827) |
-| | OLMo | | 6.4% (184/2,870) |
-| Same generator, different summaries of the same function | Gemini (SONAR's generator) | Zero-scored summaries whose function has another summary implemented correctly | 84.4% (493/584) |
-| | | Functions with a zero-scored summary that also have a correctly implemented summary | 90.9% (90/99) |
+| Same summary, different generators | Gemini | Wrong code on summaries another generator implemented correctly | 5.1% |
+| | Qwen | | 5.1% |
+| | OLMo | | 6.4% |
+| Same generator, different summaries of the same function | Gemini (SONAR's generator) | Zero-scored summaries whose function has another summary implemented correctly | 84.4% |
+| | | Functions with a zero-scored summary that also have a correctly implemented summary | 90.9% |
 
 ### Table IV: Human labels and SONAR agreement per dimension (RQ1)
 
