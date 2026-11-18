@@ -234,8 +234,8 @@ Cells: MAD / Spearman ρ [95% CI] / human agreement (Δ pp relative to the origi
 
 ### Table III: Code-generation errors
 **Experimental setup**
-- 3,891 summaries of 191 functions (the downstream-task summaries) are scored for Correctness with Gemini 2.5 Flash, Qwen2.5-Coder-32B and OLMo-3.1-32B as the generator. This is the full generator-swap run; the G rows of Table I use a random sample of about 1,000 of these summaries.
-- Correct: Correctness ≥ 0.95; wrong: Correctness < 0.5.
+- The 3,891 downstream-task summaries are scored for functional similarity with Gemini 2.5 Flash, Qwen2.5-Coder-32B and OLMo-3.1-32B as the generator.
+- Correct: functional similarity ≥ 0.95; wrong: functional similarity < 0.5.
 
 | Analysis | Generator | Measure | Value |
 |---|---|---|---|
@@ -316,7 +316,7 @@ Measured on the 100 sampled summaries of Table I (local models on one NVIDIA A10
 | Abstraction | 5,355 | 57.8 | 29.4 | $0.0123 |
 | **Total (dimensions in parallel)** | **16,277** | **57.8** | **29.4** | **$0.0401** |
 
-The number of model calls can be reduced, e.g. with fewer compressions or a smaller Abstraction pool, at some loss of precision (a pool of 6 keeps ρ = 0.978 with the pool of 9; Table IV), and Gemini can be replaced by open-source models such as Qwen or OLMo (ρ ≥ 0.878; Table IV), removing the API cost.
+N.B. The number of model calls can be reduced with a smaller Abstraction pool, at some loss of precision (a pool of 6 keeps ρ = 0.978 with the pool of 9; Table IV), and Gemini as G and P can be replaced by open-source models such as Qwen or OLMo (ρ ≥ 0.878; Table IV), removing the API cost of Correctness and Conciseness.
 
 **Breakdown**
 
