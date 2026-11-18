@@ -11,7 +11,7 @@ from typing import Dict, List, Tuple
 SCRIPT_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(SCRIPT_DIR))
 from score_summary import score_summary
-from calculate_abstraction import LocalCodeGenerator
+from calculate_abstraction import CODE_GEN_SYSTEM, TOP_P, LocalCodeGenerator
 from calculate_fluency import FluencyScorer
 
 MODELS_DIR = Path(os.environ.get("SONAR_MODELS_DIR", SCRIPT_DIR / "models"))
@@ -80,6 +80,15 @@ PROMPTS = {
         "Summary:"
     ),
 }
+
+CODE_GEN_PROMPT = (
+    "You are a Python code generator. Given a function summary and its signature, "
+    "produce a correct, complete Python function. "
+    "Implement ONLY what is explicitly described in the summary — do not add any "
+    "behavior, logic, or knowledge from your training data that is not stated in the summary. "
+    "If the summary omits a detail, leave it unimplemented rather than inferring it. "
+    "Output only the code, no explanations."
+)
 
 COMPRESS_PROMPT = (
     "Compress the following function summary into a shorter version, "
@@ -168,10 +177,9 @@ class GeminiModel:
     def summarize(self, code: str, prompt: str) -> str:
         return _clean_summary(self._call(prompt.format(code=code)))
 
-    def generate(self, summary: str, func_sig: str, temperature=None) -> str:
-        from calculate_abstraction import CODE_GEN_SYSTEM, TOP_P
+    def generate(self, summary: str, func_sig: str, temperature=None, system: str = CODE_GEN_PROMPT) -> str:
         from google.genai import types
-        prompt = f"{CODE_GEN_SYSTEM}\n\nSummary: {summary}\nFunction signature:\n{func_sig}\n\nOutput only code."
+        prompt = f"{system}\n\nSummary: {summary}\nFunction signature:\n{func_sig}\n\nOutput only code."
         config = None if temperature is None else types.GenerateContentConfig(temperature=temperature, top_p=TOP_P)
         return _extract_code(self._call(prompt, config=config), func_sig=func_sig)
 
@@ -355,9 +363,20 @@ def get_model(name: str):
     raise ValueError(f"unknown model kind: {kind}")
 
 
+class GeminiPoolGenerator:
+    def __init__(self, judge: GeminiModel):
+        self.judge = judge
+
+    def generate(self, summary: str, func_sig: str, temperature: float) -> str:
+        return self.judge.generate(summary, func_sig, temperature, system=CODE_GEN_SYSTEM)
+
+    def unload(self):
+        pass
+
+
 def _abstraction_generator(name: str, judge: GeminiModel):
     if name == "gemini":
-        return judge
+        return GeminiPoolGenerator(judge)
     cfg = MODEL_REGISTRY[name]
     if cfg["kind"] != "instruct":
         raise ValueError(f"{name} can't be used as an abstraction generator (kind={cfg['kind']})")
@@ -411,8 +430,7 @@ def _score_all(
             }
 
     for g in generators:
-        if g is not judge:
-            g.unload()
+        g.unload()
 
     return results
 
