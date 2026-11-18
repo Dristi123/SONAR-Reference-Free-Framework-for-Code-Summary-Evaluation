@@ -25,10 +25,10 @@ JOERN_PARSE   = str(JOERN_CLI_DIR / "joern-parse")
 JOERN_EXPORT  = str(JOERN_CLI_DIR / "joern-export")
 JOERN_TIMEOUT = 120
 
-_JAVA17_BIN = Path(os.environ.get("JAVA17_HOME", "/usr/lib/jvm/java-17"))
-_JOERN_ENV  = os.environ.copy()
-_JOERN_ENV["PATH"]      = str(_JAVA17_BIN) + ":" + str(JOERN_CLI_DIR) + ":" + _JOERN_ENV.get("PATH", "")
-_JOERN_ENV["JAVA_HOME"] = str(_JAVA17_BIN.parent)
+_JAVA17_HOME = Path(os.environ.get("JAVA17_HOME", "/usr/lib/jvm/java-17"))
+_JOERN_ENV   = os.environ.copy()
+_JOERN_ENV["PATH"]      = str(_JAVA17_HOME / "bin") + ":" + str(JOERN_CLI_DIR) + ":" + _JOERN_ENV.get("PATH", "")
+_JOERN_ENV["JAVA_HOME"] = str(_JAVA17_HOME)
 
 
 _PYTHON_KW   = set(keyword.kwlist)
@@ -178,31 +178,20 @@ def compute_diversity(codes: List[str], entry_point: str, func_sig: str) -> Dict
     exclude  = _sig_tokens(func_sig)
     pairs    = list(combinations(range(len(codes)), 2))
     cpg_sets = _get_cpg_sets(codes, entry_point)
-    valid    = [(i, j) for i, j in pairs if cpg_sets[i] and cpg_sets[j]]
-
-    if valid:
-        sims = [
-            0.5 * _jaccard(cpg_sets[i], cpg_sets[j]) +
-            0.5 * _token_bigram_jaccard(codes[i], codes[j], exclude)
-            for i, j in valid
-        ]
-        cpg_available = True
-        used_pairs    = valid
-    else:
-        sims = [
-            0.5 * _ast_jaccard(codes[i], codes[j]) +
-            0.5 * _token_bigram_jaccard(codes[i], codes[j], exclude)
-            for i, j in pairs
-        ]
-        cpg_available = False
-        used_pairs    = pairs
+    sims = []
+    for i, j in pairs:
+        if cpg_sets[i] and cpg_sets[j]:
+            structural = _jaccard(cpg_sets[i], cpg_sets[j])
+        else:
+            structural = _ast_jaccard(codes[i], codes[j])
+        sims.append(0.5 * structural + 0.5 * _token_bigram_jaccard(codes[i], codes[j], exclude))
 
     mean_sim = sum(sims) / len(sims) if sims else 1.0
     return {
         "diversity_score": round(1.0 - mean_sim, 4),
         "mean_sim":        round(mean_sim, 4),
-        "n_valid_pairs":   len(used_pairs),
-        "cpg_available":   cpg_available,
+        "n_valid_pairs":   len(pairs),
+        "cpg_available":   all(cpg_sets),
     }
 
 

@@ -581,7 +581,7 @@
 {"task_id": "HumanEval_40", "summary_id": "HumanEval_40_codet5_sum_Vanilla_smaller_models", "correctness": 1.0, "abstraction": 0.3}
 {"task_id": "HumanEval_40", "summary_id": "HumanEval_40_gemini_Vanilla_big_models", "correctness": 1.0, "abstraction": 0.18}
 {"task_id": "HumanEval_40", "summary_id": "HumanEval_40_gemini_dim_aware_big_models", "correctness": 1.0, "abstraction": 0.43}
-{"task_id": "HumanEval_40", "summary_id": "HumanEval_40_kimi_Vanilla_big_models", "correctness": 1.0, "abstraction": 0.0599}
+{"task_id": "HumanEval_40", "summary_id": "HumanEval_40_kimi_Vanilla_big_models", "correctness": 1.0, "abstraction": 0.06}
 {"task_id": "HumanEval_40", "summary_id": "HumanEval_40_kimi_dim_aware_big_models", "correctness": 1.0, "abstraction": 0.4516}
 {"task_id": "HumanEval_40", "summary_id": "HumanEval_40_mistral_Vanilla_small_models", "correctness": 1.0, "abstraction": 0.1}
 {"task_id": "HumanEval_40", "summary_id": "HumanEval_40_mistral_dim_aware_small_models", "correctness": 1.0, "abstraction": 0.11}

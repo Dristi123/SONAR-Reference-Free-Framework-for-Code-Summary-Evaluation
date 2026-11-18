@@ -199,8 +199,11 @@ class KimiModel:
         import openai
         self._client = openai.OpenAI(base_url=KIMI_BASE_URL, api_key=KIMI_API_KEY)
 
-    def _chat(self, messages: List[Dict]) -> str:
-        stream = self._client.chat.completions.create(model=KIMI_MODEL, messages=messages, stream=True)
+    def _chat(self, messages: List[Dict], temperature=None) -> str:
+        kwargs = {"model": KIMI_MODEL, "messages": messages, "stream": True}
+        if temperature is not None:
+            kwargs["temperature"] = temperature
+        stream = self._client.chat.completions.create(**kwargs)
         content = ""
         for chunk in stream:
             delta = chunk.choices[0].delta.content
@@ -210,6 +213,13 @@ class KimiModel:
 
     def summarize(self, code: str, prompt: str) -> str:
         return _clean_summary(self._chat([{"role": "user", "content": prompt.format(code=code)}]))
+
+    def generate(self, summary: str, func_sig: str, temperature: float) -> str:
+        raw = self._chat([
+            {"role": "system", "content": CODE_GEN_SYSTEM},
+            {"role": "user", "content": f"Summary: {summary}\nFunction signature:\n{func_sig}"},
+        ], temperature=temperature)
+        return _extract_code(raw, func_sig=func_sig)
 
     def unload(self):
         pass
@@ -378,6 +388,8 @@ def _abstraction_generator(name: str, judge: GeminiModel):
     if name == "gemini":
         return GeminiPoolGenerator(judge)
     cfg = MODEL_REGISTRY[name]
+    if cfg["kind"] == "kimi":
+        return KimiModel()
     if cfg["kind"] != "instruct":
         raise ValueError(f"{name} can't be used as an abstraction generator (kind={cfg['kind']})")
     return LocalCodeGenerator(cfg["path"])
@@ -456,13 +468,16 @@ def main():
                         help="Summarization prompting strategy")
     parser.add_argument("--models", nargs="+", choices=list(MODEL_REGISTRY), default=None,
                         help="Which models to generate+score summaries with (default: all 11)")
+    parser.add_argument("--abstraction-pool", nargs="+", default=ABSTRACTION_POOL,
+                        choices=[n for n, c in MODEL_REGISTRY.items() if c["kind"] in ("gemini", "kimi", "instruct")],
+                        help="Code generators in the Abstraction pool (default: gemini olmo qwen)")
     args = parser.parse_args()
 
     models = args.models if args.models is not None else list(MODEL_REGISTRY)
     entries = list(_load_entries())
 
     summaries = _summarize_all(entries, models, args.strategy)
-    results = _score_all(entries, summaries, models, ABSTRACTION_POOL)
+    results = _score_all(entries, summaries, models, args.abstraction_pool)
 
     results_dir = SCRIPT_DIR / "results"
     results_dir.mkdir(exist_ok=True)

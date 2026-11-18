@@ -103,7 +103,8 @@ def main():
     for dim in ("correctness", "conciseness"):
         status = Counter(r["status"] for r in fuzz if r["dimension"] == dim)
         n = sum(status.values())
-        failures.append((dim.capitalize(), "Stub code (scored 0 without fuzzing)", pct(status["stub"], n)))
+        if dim == "correctness":
+            failures.append((dim.capitalize(), "Stub code (scored 0 without fuzzing)", pct(status["stub"], n)))
         failures.append((dim.capitalize(), "Fuzzing comparison without a valid result (left unscored)",
                          pct(sum(v for k, v in status.items() if k in NO_VALID_RESULT), n)))
     functions = FUNCTIONS_PER_SUMMARY * len(joern)

@@ -71,18 +71,18 @@ This generates Table III (partial Spearman correlation between each method and d
 |---|---|---|---|---|---|---|---|
 | SONAR | Correctness | 0.06\*\* [0.02, 0.10] | 0.37\*\*\* [0.28, 0.45] | −0.12\*\*\* [−0.17, −0.07] | 0.51\*\*\* [0.40, 0.61] | −0.01 [−0.08, 0.07] | 0.24\*\*\* [0.19, 0.30] |
 |  | Abstraction | 0.13\*\*\* [0.08, 0.18] | −0.02 [−0.06, 0.04] | 0.13\*\*\* [0.08, 0.18] | 0.03 [−0.03, 0.09] | 0.15\*\*\* [0.07, 0.22] | −0.02 [−0.06, 0.02] |
-|  | Conciseness† | 0.01 [−0.03, 0.04] | 0.01 [−0.03, 0.05] | 0.04\* [0.00, 0.07] | −0.06\* [−0.10, −0.00] | −0.05 [−0.11, 0.02] | 0.00 [−0.04, 0.04] |
+|  | Conciseness | 0.01 [−0.03, 0.04] | 0.01 [−0.03, 0.05] | 0.04\* [0.00, 0.07] | −0.06\* [−0.10, −0.00] | −0.05 [−0.11, 0.02] | 0.00 [−0.04, 0.04] |
 |  | Fluency | −0.00 [−0.05, 0.05] | −0.05\* [−0.10, −0.00] | −0.02 [−0.06, 0.02] | −0.05 [−0.10, 0.01] | 0.01 [−0.04, 0.06] | −0.05\* [−0.10, −0.01] |
 | Crupi | Content Adequacy | 0.04 [−0.01, 0.08] | 0.12\*\* [0.04, 0.20] | −0.03 [−0.08, 0.02] | 0.18\*\* [0.06, 0.30] | 0.01 [−0.07, 0.08] | 0.09\*\*\* [0.05, 0.13] |
-|  | Conciseness† | 0.02 [−0.01, 0.05] | 0.00 [−0.05, 0.06] | −0.03 [−0.07, 0.01] | 0.07\* [0.01, 0.13] | 0.02 [−0.06, 0.09] | 0.01 [−0.02, 0.04] |
+|  | Conciseness | 0.02 [−0.01, 0.05] | 0.00 [−0.05, 0.06] | −0.03 [−0.07, 0.01] | 0.07\* [0.01, 0.13] | 0.02 [−0.06, 0.09] | 0.01 [−0.02, 0.04] |
 |  | Fluency | −0.02 [−0.06, 0.03] | 0.11\*\*\* [0.05, 0.17] | −0.05\* [−0.09, −0.01] | 0.08\* [0.00, 0.17] | −0.00 [−0.07, 0.07] | 0.12\*\*\* [0.08, 0.16] |
 | CodeRPE | Coherence | 0.00 [−0.03, 0.04] | 0.04 [−0.00, 0.09] | −0.06\*\* [−0.10, −0.02] | 0.02 [−0.03, 0.09] | −0.02 [−0.07, 0.03] | 0.07\*\*\* [0.04, 0.10] |
 |  | Consistency | 0.02 [−0.02, 0.06] | 0.19\*\*\* [0.13, 0.26] | −0.07\*\* [−0.10, −0.03] | 0.26\*\*\* [0.16, 0.34] | 0.04 [−0.01, 0.08] | 0.16\*\*\* [0.12, 0.20] |
 |  | Fluency | −0.03 [−0.06, 0.00] | 0.02 [−0.04, 0.08] | −0.02 [−0.06, 0.02] | 0.05 [−0.04, 0.14] | −0.00 [−0.06, 0.05] | 0.04\* [0.00, 0.09] |
-|  | Relevance† | −0.00 [−0.04, 0.04] | 0.01 [−0.04, 0.05] | −0.02 [−0.06, 0.02] | 0.01 [−0.05, 0.07] | 0.04 [−0.02, 0.09] | 0.02 [−0.02, 0.06] |
+|  | Relevance | −0.00 [−0.04, 0.04] | 0.01 [−0.04, 0.05] | −0.02 [−0.06, 0.02] | 0.01 [−0.05, 0.07] | 0.04 [−0.02, 0.09] | 0.02 [−0.02, 0.06] |
 | Claude Opus 4.8 | Correctness | −0.01 [−0.06, 0.03] | 0.26\*\*\* [0.18, 0.34] | −0.10\*\* [−0.15, −0.04] | 0.36\*\*\* [0.25, 0.46] | 0.04 [−0.03, 0.12] | 0.19\*\*\* [0.15, 0.24] |
 |  | Abstraction | −0.01 [−0.06, 0.04] | −0.01 [−0.06, 0.04] | 0.05\* [0.01, 0.09] | −0.02 [−0.08, 0.04] | 0.16\*\*\* [0.06, 0.26] | 0.03 [−0.01, 0.07] |
-|  | Conciseness† | 0.05 [−0.01, 0.09] | 0.05 [−0.00, 0.10] | −0.04 [−0.07, −0.00] | 0.04 [−0.02, 0.12] | −0.07 [−0.14, 0.02] | 0.06\*\*\* [0.03, 0.09] |
+|  | Conciseness | 0.05 [−0.01, 0.09] | 0.05 [−0.00, 0.10] | −0.04 [−0.07, −0.00] | 0.04 [−0.02, 0.12] | −0.07 [−0.14, 0.02] | 0.06\*\*\* [0.03, 0.09] |
 | Reference-based | BLEU-4 | −0.08\* [−0.17, −0.00] | 0.02 [−0.03, 0.07] | −0.00 [−0.06, 0.05] | 0.05 [−0.02, 0.12] | 0.04 [−0.03, 0.10] | 0.06\*\* [0.02, 0.10] |
 |  | ROUGE-L | −0.05 [−0.11, 0.01] | 0.02 [−0.03, 0.06] | −0.01 [−0.07, 0.05] | 0.05 [−0.02, 0.11] | 0.07 [−0.01, 0.15] | 0.06\*\* [0.02, 0.10] |
 |  | METEOR | −0.02 [−0.07, 0.04] | 0.06\*\* [0.02, 0.09] | 0.00 [−0.05, 0.06] | 0.07\* [0.01, 0.12] | 0.07\* [0.01, 0.13] | 0.07\*\* [0.03, 0.11] |
@@ -135,9 +135,29 @@ This generates Table IV (MAD and Spearman ρ under each configuration) in [`Expe
 | Empty summary | 0.446 | 0.234 | 0.295 | 0.307 | 0.271 | 0.258 |
 
 ## :scroll: Reproducing the Appendix tables
-Each analysis folder in [`Experiments/Major_Revision`](Experiments/Major_Revision) (all except `LLM_Judges`, which holds the judge scores and [`run_judges.py`](Experiments/Major_Revision/LLM_Judges/scripts/run_judges.py)) has a `scripts/create_table.py` that writes its table to the folder's `results/`:
+**Table I: Sensitivity of SONAR to LLM configuration (RQ4)** → [`Experiments/Major_Revision/Sensitivity/results`](Experiments/Major_Revision/Sensitivity/results) (`sensitivity_table.csv`)
 ```bash
-cd Experiments/Major_Revision/<Folder>/scripts
+cd Experiments/Major_Revision/Sensitivity/scripts
+python3 create_table.py
+```
+**Table II: Downstream effect of prompting for Abstraction (RQ3)** → [`Experiments/Major_Revision/Prompting_Downstream/results`](Experiments/Major_Revision/Prompting_Downstream/results) (`few_shot_downstream.csv` and `dim_aware_downstream.csv`)
+```bash
+cd Experiments/Major_Revision/Prompting_Downstream/scripts
+python3 create_table.py
+```
+**Table III: Code-generation errors** → [`Experiments/Major_Revision/Generator_Errors/results`](Experiments/Major_Revision/Generator_Errors/results) (`generator_errors.csv`)
+```bash
+cd Experiments/Major_Revision/Generator_Errors/scripts
+python3 create_table.py
+```
+**Table IV: Human labels and SONAR agreement per dimension (RQ1)** → [`Experiments/Major_Revision/Human_Labels/results`](Experiments/Major_Revision/Human_Labels/results) (`label_table.csv` and `confusion_matrices.png`)
+```bash
+cd Experiments/Major_Revision/Human_Labels/scripts
+python3 create_table.py
+```
+**Cost per summary** → [`Experiments/Major_Revision/Cost/results`](Experiments/Major_Revision/Cost/results) (`cost_per_summary.csv`, `cost_table.csv` and `execution_failures.csv`)
+```bash
+cd Experiments/Major_Revision/Cost/scripts
 python3 create_table.py
 ```
 
@@ -214,7 +234,7 @@ Cells: MAD / Spearman ρ [95% CI] / human agreement (Δ pp relative to the origi
 
 ### Table III: Code-generation errors
 **Experimental setup**
-- Every summary in the pool is scored for Correctness with Gemini 2.5 Flash, Qwen2.5-Coder-32B and OLMo-3.1-32B as the generator.
+- 3,891 summaries of 191 functions (the downstream-task summaries) are scored for Correctness with Gemini 2.5 Flash, Qwen2.5-Coder-32B and OLMo-3.1-32B as the generator. This is the full generator-swap run; the G rows of Table I use a random sample of about 1,000 of these summaries.
 - Correct: Correctness ≥ 0.95; wrong: Correctness < 0.5.
 
 | Analysis | Generator | Measure | Value |
@@ -328,7 +348,6 @@ The number of model calls can be reduced, e.g. with fewer compressions or a smal
 |---|---|---|
 | Correctness | Stub code (scored 0 without fuzzing) | 2.0% (2/100) |
 | Correctness | Fuzzing comparison without a valid result (left unscored) | 0.0% (0/100) |
-| Conciseness | Stub code (scored 0 without fuzzing) | 0.0% (0/300) |
 | Conciseness | Fuzzing comparison without a valid result (left unscored) | 0.3% (1/300) |
 | Abstraction | Function without a Joern graph (AST fallback) | 0.6% (5/900) |
 | Abstraction | Local generation cut at the 512-token limit | 0.8% (5/600) |

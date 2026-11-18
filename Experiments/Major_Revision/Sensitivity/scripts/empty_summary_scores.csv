@@ -9597,7 +9597,7 @@ abstraction,HumanEval_40,codellama,0.08,0.3713
 abstraction,HumanEval_40,codestral,0.19,0.3713
 abstraction,HumanEval_40,mistral,0.1,0.3713
 abstraction,HumanEval_40,gemini,0.18,0.3713
-abstraction,HumanEval_40,kimi,0.0599,0.3713
+abstraction,HumanEval_40,kimi,0.06,0.3713
 abstraction,HumanEval_40,olmo,0.17,0.3713
 abstraction,HumanEval_40,qwen,0.09,0.3713
 abstraction,HumanEval_40,codet5_sum,0.3,0.3713
